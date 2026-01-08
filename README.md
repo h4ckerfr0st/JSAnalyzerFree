@@ -4,7 +4,7 @@
 
 It is designed to automate the tedious process of auditing JavaScript files, saving you hours of manual review by surfacing critical finds directly in your Burp issues.
 
-## 🚀 Key Capabilities
+## Key Capabilities
 
 ### 1. Advanced Secrets & Credential Harvesting
 Automatically scans for high-entropy strings and known patterns to catch hardcoded secrets before they go to production.
@@ -13,7 +13,7 @@ Automatically scans for high-entropy strings and known patterns to catch hardcod
 *   **Password/Credential Pairs**
 
 ### 2. Dependency & Version Enumeration ("The Big One")
-Identifies common JavaScript libraries and frameworks in use, extraction their specific versions to help you spot outdated or vulnerable components immediately.
+Identifies common JavaScript libraries and frameworks in use, extracting their specific versions to help you spot outdated or vulnerable components immediately.
 *   **Extracts Library Names & Versions** (e.g., *jQuery 1.12.4*, *React 16.8.0*, *AngularJS 1.5*)
 *   **Fingerprints Frameworks**
 *   **Detects Vulnerable Outdated Dependencies** (similar to Retire.js logic)
@@ -27,24 +27,28 @@ Identifies common JavaScript libraries and frameworks in use, extraction their s
 *   **Source Map Detection**: Alerts if `.map` files are available, allowing you to reconstruct the original source code.
 *   **Inline Source Code**: Flags inline scripts within HTML responses.
 
-## 📦 Installation
+## Installation
 
-1.  **Prerequisites**:
-    *   **Burp Suite** (Professional or Community)
-    *   **Jython Standalone JAR** (Download from [jython.org](https://www.jython.org/download))
+**Important API Note**: Burp Suite is written in Java. To run Python extensions like this one, you **MUST** install and configure Jython (Java Python).
 
-2.  **Setup**:
-    *   In Burp, navigate to **Extensions** -> **Extensions Settings**.
-    *   Under **Python Environment**, select your downloaded `jython-standalone-*.jar`.
+1.  **Download Jython**:
+    *   Go to the [Jython Official Website](https://www.jython.org/download).
+    *   Download the **Jython Standalone JAR** (e.g., `jython-standalone-2.7.3.jar`). This is required; the standard Python installed on your OS will not work with Burp Suite.
 
-3.  **Load Extension**:
-    *   Go to **Extensions** -> **Installed**.
+2.  **Configure Burp Suite**:
+    *   Open Burp Suite.
+    *   Navigate to **Extensions** > **Extensions Settings**.
+    *   Locate the **Python Environment** section.
+    *   Click **Select file** and browse to the location where you saved the `jython-standalone-*.jar` file.
+
+3.  **Load the Extension**:
+    *   Go to **Extensions** > **Installed**.
     *   Click **Add**.
-    *   Select **Extension Type: Python**.
-    *   Choose the `js_analyzer.py` file.
-    *   Click **Next**. You're live!
+    *   Set **Extension Type** to **Python**.
+    *   Click **Select file** and choose `js_analyzer.py`.
+    *   Click **Next**. The output window should show: `JS Analyzer loaded`.
 
-## 🛠 Usage
+## Usage
 
 ### Automatic Passive Scanning
 Just browse your target application. JS Analyzer runs in the background. When it sees an HTTP response containing JavaScript (header `Content-Type: javascript` or file extension `.js`), it kicks in automatically.
@@ -52,9 +56,9 @@ Just browse your target application. JS Analyzer runs in the background. When it
 ### Manual Analysis
 If you want to re-scan a specific request or analyze a file you suspect was missed:
 1.  Right-click the request/response in **Proxy** or **Repeater**.
-2.  Select **Extensions** -> **JS Analyzer** -> **Analyze Response**.
+2.  Select **Extensions** > **JS Analyzer** > **Analyze Response**.
 
-## 📋 Example Findings
+## Example Findings
 
 When usage is detected, alerts usually appear in the **Issue Activity** dashboard or the **Extensions Output** tab.
 
@@ -66,7 +70,7 @@ When usage is detected, alerts usually appear in the **Issue Activity** dashboar
 [ OFFICIAL JS Analyzer] [i] Endpoint Discovered: /api/v1/users/login
 ```
 
-## 🤝 Contributing
+## Contributing
 Found a bug? Want to add a new regex pattern?
 1.  Fork the repo
 2.  Create your feature branch (`git checkout -b feature/NewPattern`)
